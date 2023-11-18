@@ -1,7 +1,7 @@
 import ReactDom from 'react-dom/client'
 import {BrowserRouter as Router, Route, Link, Routes, useMatch, useParams} from 'react-router-dom'
 import kappaleet from '../dummy/dummy'
-import './App.css'
+import './styles/App.css'
 
 
 const Menu = () => (
@@ -97,7 +97,7 @@ const App = () => {
 
   return (
     <>
-      <yläteksti id="header1"><img id="kuva1" src="./img/oty_6.png"/> LAULUKALU </yläteksti>
+      <yläteksti id="header1"><img id="kuva1" src="../public/oty_6.png"/> LAULUKALU </yläteksti>
       <div className="container">
         <Kategoriat kategoriat={kategoriat}/>
         <Routes>
