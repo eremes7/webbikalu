@@ -98,7 +98,7 @@ const App = () => {
   return (
     <>
       <yläteksti id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU </yläteksti>
-      <div className="container">
+      <div className="container"><img id="kuva" src="../frontPageImg.png" />
         <Kategoriat kategoriat={kategoriat}/>
         <Routes>
           <Route path=""/>
