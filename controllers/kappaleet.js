@@ -6,7 +6,7 @@ const middleWare = require('../utils/middleware')
 const jwt = require('jsonwebtoken')
 
 console.log(middleWare.tokenExtractor)
-kappaleRouter.get('/', async (request, response) => {
+kappaleRouter.get('/api/', async (request, response) => {
 	Kappale
 		.find({})
 		.then(kappaleet => {
@@ -14,7 +14,7 @@ kappaleRouter.get('/', async (request, response) => {
 		})
 })
 
-kappaleRouter.post('/', async (request, response) => {
+kappaleRouter.post('/api/', async (request, response) => {
 	try {
 		const body = request.body
 		const decodedToken = jwt.verify(middleWare.tokenExtractor(request), process.env.SECRET)
