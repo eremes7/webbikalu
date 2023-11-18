@@ -5,8 +5,8 @@ const middleWare = require('../utils/middleware')
 
 const jwt = require('jsonwebtoken')
 
-console.log(middleWare.tokenExtractor)
-kappaleRouter.get('/api/', async (request, response) => {
+
+kappaleRouter.get('/', async (request, response) => {
 	Kappale
 		.find({})
 		.then(kappaleet => {
@@ -14,7 +14,7 @@ kappaleRouter.get('/api/', async (request, response) => {
 		})
 })
 
-kappaleRouter.post('/api/', async (request, response) => {
+kappaleRouter.post('/', async (request, response) => {
 	try {
 		const body = request.body
 		const decodedToken = jwt.verify(middleWare.tokenExtractor(request), process.env.SECRET)
@@ -24,8 +24,8 @@ kappaleRouter.post('/api/', async (request, response) => {
 		const user = await User.findById(decodedToken.id)
 
 		const kappale = new Kappale({
-			nimi: body.name,
-			id: body.id,
+			nimi: body.nimi,
+			kappaleId: body.kappaleId,
 			sanat: body.sanat,
 			kategoria: body.kategoria,
 			alkuperäinen: body.alkuperäinen

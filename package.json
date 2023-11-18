@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_END=development nodemon app.js",
+    "dev": "cross-env NODE_END=development nodemon index.js",
     "test": "jest --verbose --runInBand",
     "build:ui": "rm -rf dist && cd front && npm run build && cp -r dist ../",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push -u origin master"

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const kappaleSchema = mongoose.Schema({
 	nimi: String,
 	alkuperäinen: String,
-	id: Number,
+	kappaleId: Number,
 	kategoria: String,
 	sanat: String
 })

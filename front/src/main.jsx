@@ -1,6 +1,5 @@
 import ReactDom from 'react-dom/client'
 import {BrowserRouter as Router, Route, Link, Routes, useMatch, useParams} from 'react-router-dom'
-import kappaleet from '../dummy/dummy'
 import './styles/App.css'
 
 
@@ -99,7 +98,7 @@ const App = () => {
     <>
       <yläteksti id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU </yläteksti>
       <div className="container">
-        <Kategoriat kategoriat={kategoriat}/><img id="kuva" src="../frontPageImg.png" />
+        <Kategoriat kategoriat={kategoriat}/>
         <Routes>
           <Route path=""/>
           {kategoriat.map((kategoria) => (
