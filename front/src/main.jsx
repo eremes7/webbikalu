@@ -87,7 +87,7 @@ const App = () => {
   const [kappaleet, setKappaleet] = useState([])
   
   useEffect(() => {
-    noteService
+    kappaleService
       .getAll()
       .then(initialKappaleet => {
         setKappaleet(initialKappaleet)})
