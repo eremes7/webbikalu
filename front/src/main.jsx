@@ -1,7 +1,9 @@
 import ReactDom from 'react-dom/client'
 import {BrowserRouter as Router, Route, Link, Routes, useMatch, useParams} from 'react-router-dom'
 import './styles/App.css'
+import kappaleService from './services/kappaleet'
 
+console.log(KappaleService)
 
 const Menu = () => (
   <aside>
