@@ -21,10 +21,6 @@ mongoose.connect(config.MONGODB_URI)
 		console.log('Virhe yhdistäessä tietokantaan: ', error.message)
 	})
 
-app.listen(config.PORT, () => {
-	console.log(`Serveri pyörii portissa: ${config.PORT}`)
-})
-
 app.use(cors())
 app.use(express.json())
 
