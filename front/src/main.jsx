@@ -12,7 +12,7 @@ const Menu = () => (
 )
 
 
-const Kategoriat = ({kategoriat}) => (
+const Kategoriat = ({kategoriat, kappaleet}) => (
   <div>
     <Menu/>
     <aside>
