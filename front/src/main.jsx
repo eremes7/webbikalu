@@ -1,9 +1,9 @@
 import ReactDom from 'react-dom/client'
+import {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Route, Link, Routes, useMatch, useParams} from 'react-router-dom'
 import './styles/App.css'
 import kappaleService from './services/kappaleet'
 
-console.log(KappaleService)
 
 const Menu = () => (
   <aside>
@@ -84,6 +84,17 @@ const HakemistoArticle = ({ kappaleet, kategoriat }) => (
 
 
 const App = () => {
+  const [kappaleet, setKappaleet] = useState([])
+  
+  useEffect(() => {
+    noteService
+      .getAll()
+      .then(initialKappaleet => {
+        setKappaleet(initialKappaleet)})
+  }, [])
+
+  console.log(kappaleet)
+
   const kategoriat = kappaleet.reduce((acc, cur) => {
     if (!acc.includes(cur.kategoria)){
       acc.push(cur.kategoria)
