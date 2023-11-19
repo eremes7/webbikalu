@@ -64,6 +64,7 @@ const KirjautumisArticle = ({ handleLogin, handleUsernameChange, handlePasswordC
           />
         </div>
         <button type="submit">kirjaudu</button>
+        <a href="https://www.duodecimlehti.fi/duo94044">Unohtuiko salasana?</a>
       </form>}
       {user && <> <div> Kirjautunut käyttäjällä {user.username} </div><button onClick={() => window.localStorage.clear()}>Kirjaudu ulos</button></>}
     </article>
