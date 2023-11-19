@@ -43,6 +43,9 @@ aside {
   padding: 10px;
 }
 
+p {
+  margin: 0px;
+}
 header {
   text-align: top;
   left: 90px;

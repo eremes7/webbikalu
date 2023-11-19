@@ -19,7 +19,7 @@ const LisääKappaleLink = () => (
   </aside>
 )
 
-const Sivupalkki = ({kategoriat, kappaleet}) => (
+const Sivupalkki = ({kategoriat, kappaleet, user}) => (
   <div>
     <aside>
       <Menu />
@@ -31,7 +31,7 @@ const Sivupalkki = ({kategoriat, kappaleet}) => (
     </aside>
     <Hakemisto kappaleet={kappaleet} kategoriat={kategoriat}/>
     <Kirjautuminen />
-    <LisääKappaleLink />
+    {user && <LisääKappaleLink />}
   </div>
 )
 
@@ -64,7 +64,7 @@ const KirjautumisArticle = ({ handleLogin, handleUsernameChange, handlePasswordC
         </div>
         <button type="submit">kirjaudu</button>
       </form>}
-      {user && <div> Kirjautunut käyttäjällä {user.username} </div>}
+      {user && <> <div> Kirjautunut käyttäjällä {user.username} </div><button onClick={() => window.localStorage.clear()}>Kirjaudu ulos</button></>}
     </article>
   )}
 
@@ -125,9 +125,59 @@ const HakemistoArticle = ({ kappaleet, kategoriat }) => (
 
 const LisääKappale = () => (
   <article>
+    <div>
+      <h2>öaslkd</h2> 
     PRöött
+    </div>
   </article>
     )
+
+const Main = () => (
+  <article>
+    <h2>Tarina laulukalun synnystä </h2>
+    <p>Irkkiin kulki huhu että loppui Kalun taika</p>
+    <p>Vanha painos vähiin kävi siispä uuden aika</p>
+    <p>Siihen Kalukomitea masottinaan Laika</p>
+    <p>Laulukalleuksia ryhtyi hieromaan</p>
+    <h2>  </h2>
+    <p>Joka killast' siellä oli kutsuttuna ukko</p>
+    <p>Aapo seisoi päällä kuten tunkionsa kukko</p>
+    <p>Pian oltiin mökillä ja ovess' oli lukko</p>
+    <p>Ja uuden Kalun viisit siellä alkoi kaukumaan</p>
+    <h2>  </h2>
+    <p>  :,: Siellä juotiin, siellä laulettiin</p>
+    <p>  keväällä kova oli Kalu niin :,:</p>
+    <h2>  </h2>
+    <p>Laulut vaihtui tiuhaan siellä kova oli tahti</p>
+    <p>Taso huimas päätä kuten viikon vanha sahti</p>
+    <p>Siinä nähtiin tämän Kalukomitean mahti</p>
+    <p>Kun Laulukalun biisit sen kun paranee.</p>
+    <h2>  </h2>
+    <p>Sitten äänen avas joku prosekillan mulkku</p>
+    <p>Nousi pöydän päälle kuten tuhti punatulkku</p>
+    <p>Juicen surkuvirsusta koht' täytty joka kulkku</p>
+    <p>Ja Aapo huutaa tää ei kyllä Laulukaluun mee</p>
+    <h2>  </h2>
+    <p>:,: Siellä juotiin, siellä painittiin</p>
+    <p>keväällä käyrä oli Kalu niin :,:</p>
+    <h2>  </h2>
+    <p>Kohtapuoliin pitäis saada uusi Kalu julki</p>
+    <p>Koko Komitea viimein asioita sulki</p>
+    <p>Silti koko prosessi vain takaperin kulki</p>
+    <p>Tästä vielä vähemmistöt suivaantuu</p>
+    <p>  </p>
+    <p>Kalu viimein valmis on kun sanat kansiin laittoi</p>
+    <p>Kossupullo päivässä ja Stoke kyllä taittoi</p>
+    <p>Koko porukalle muuan jalojuoma maittoi</p>
+    <p>Ensi Laulukalun tekee kyllä Joku muu™</p>
+    <h2>  </h2>
+    <p>  :,: Siellä juotiin, siellä juhlittiin</p>
+    <p>  keväällä kaunis oli Kalu niin :,:</p>
+    <p>  </p>
+    <p>  </p>
+  </article>
+)
+
 
 const App = () => {
   const [kappaleet, setKappaleet] = useState([])
@@ -196,11 +246,11 @@ const App = () => {
 
   return (
     <>
-      <header id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU </header>
+      <header id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU ---------- 12/369   laulua</header>
       <div className="container">
-        <Sivupalkki kategoriat={kategoriat} kappaleet={kappaleet}/>
+        <Sivupalkki user={user} kategoriat={kategoriat} kappaleet={kappaleet}/>
         <Routes>
-          <Route path="/" element={<Sivupalkki kategoriat={kategoriat} kappaleet={kappaleet}/>}/>
+          <Route path="/" element={<Main />}/>
           {kategoriat.map((kategoria) => (
             <Route key={kategoria} path={`/${kategoria}`} element={
               <Kappaleet kappaleet={kappaleet.filter(kappale => kappale.kategoria === kategoria)} />}/>
@@ -214,7 +264,7 @@ const App = () => {
           />)}
           <Route path="/Kirjautuminen" element={<KirjautumisArticle handleLogin={handleLogin} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} user={user} errorMessage={errorMessage}/>} />
 
-        {!user && <Route path="/Lis%C3%A4%C3%A4Kappale" element={<LisääKappale/>}/>}
+        {user && <Route path="/LisääKappale" element={<LisääKappale/>}/>}
 
         </Routes>
 
