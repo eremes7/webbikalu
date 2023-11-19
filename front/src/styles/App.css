@@ -43,7 +43,7 @@ aside {
   padding: 10px;
 }
 
-yläteksti {
+topBar {
   text-align: top;
   left: 90px;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -58,4 +58,9 @@ yläteksti {
   font-style: normal;
   font-variant: normal;
   text-transform: uppercase;
+}
+
+kirjautuminen {
+  bottom: 100px;
+  left: 100px;
 }
