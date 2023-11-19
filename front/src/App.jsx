@@ -196,6 +196,8 @@ const App = () => {
         setKappaleet(initialKappaleet)})
   }, [])
 
+  console.log(kappaleet)
+
   useEffect (() => {
     const loggedUserJSON = window.localStorage.getItem('loggedWebKaluAppUser')
     if (loggedUserJSON) {
@@ -247,7 +249,7 @@ const App = () => {
 
   return (
     <>
-      <header id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU ---------- 12/369   laulua</header>
+      <header id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU ---------- {kappaleet.length}/369   laulua</header>
       <div className="container">
         <Sivupalkki user={user} kategoriat={kategoriat} kappaleet={kappaleet}/>
         <Routes>
