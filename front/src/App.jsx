@@ -9,9 +9,10 @@ import Notification from './components/Notification'
 
 const Menu = () => (
   <aside>
-    <Link to="/"> Kategoriat </Link>
+    <Link to="/"> Etusivu </Link>
   </aside>
 )
+
 
 const LisääKappaleLink = () => (
   <aside>
@@ -23,13 +24,13 @@ const Sivupalkki = ({kategoriat, kappaleet, user}) => (
   <div>
     <aside>
       <Menu />
+      <Hakemisto kappaleet={kappaleet} kategoriat={kategoriat}/>
       {kategoriat.map((kategoria) => 
       <li key={kategoria}>
         <Link to={`/${kategoria}`}>{kategoria}</Link>
       </li>
       )}
     </aside>
-    <Hakemisto kappaleet={kappaleet} kategoriat={kategoriat}/>
     <Kirjautuminen />
     {user && <LisääKappaleLink />}
   </div>
@@ -127,10 +128,10 @@ const LisääKappale = () => (
   <article>
     <div>
       <h2>öaslkd</h2> 
-    PRöött
+      PRöött
     </div>
   </article>
-    )
+)
 
 const Main = () => (
   <article>
@@ -264,7 +265,7 @@ const App = () => {
           />)}
           <Route path="/Kirjautuminen" element={<KirjautumisArticle handleLogin={handleLogin} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} user={user} errorMessage={errorMessage}/>} />
 
-        {user && <Route path="/LisääKappale" element={<LisääKappale/>}/>}
+          {user && <Route path="/LisääKappale" element={<LisääKappale/>}/>}
 
         </Routes>
 
