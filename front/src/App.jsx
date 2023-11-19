@@ -134,28 +134,39 @@ const App = () => {
         setKappaleet(initialKappaleet)})
   }, [])
 
+  useEffect (() => {
+    const loggedUserJson = window.localStorage.getItem('loggedWebKaluAppUser')
+    if (loggedUserJson) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      kappaleService.setToken(user.token)
+    }
+  },[])
+
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login({
         username: newUsername, password: newPassword
       })
+      window.localStorage.setItem(
+        'loggedWebKaluAppUser', JSON.stringify(user)
+      )
+      kappaleService.setToken(user.token)
       setUser(user)
       setUsername(newUsername)
       setPassword(newPassword)
-      console.log(user)
-      console.log('kirjaudutaan käyttäjällä,', newUsername, newPassword)
     } catch(exception) {
       setErrorMessage('Virheellinen käyttäjätunnus')
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
     }
-
     setNewUsername('')
     setNewPassword('')
-
   }
+
   const handleUsernameChange = (event) => {
     setNewUsername(event.target.value)
   }
