@@ -13,6 +13,11 @@ const Menu = () => (
   </aside>
 )
 
+const LisääKappaleLink = () => (
+  <aside>
+    <Link to="/LisääKappale"> Lisää kappale </Link>
+  </aside>
+)
 
 const Sivupalkki = ({kategoriat, kappaleet}) => (
   <div>
@@ -26,6 +31,7 @@ const Sivupalkki = ({kategoriat, kappaleet}) => (
     </aside>
     <Hakemisto kappaleet={kappaleet} kategoriat={kategoriat}/>
     <Kirjautuminen />
+    <LisääKappaleLink />
   </div>
 )
 
@@ -117,6 +123,11 @@ const HakemistoArticle = ({ kappaleet, kategoriat }) => (
   </article>
 )
 
+const LisääKappale = () => (
+  <article>
+    PRöött
+  </article>
+    )
 
 const App = () => {
   const [kappaleet, setKappaleet] = useState([])
@@ -185,7 +196,7 @@ const App = () => {
 
   return (
     <>
-      <header className="topBar" id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU </header>
+      <header id="header1"><img id="kuva1" src="../oty_6.png"/> LAULUKALU </header>
       <div className="container">
         <Sivupalkki kategoriat={kategoriat} kappaleet={kappaleet}/>
         <Routes>
@@ -202,6 +213,9 @@ const App = () => {
             element={<KappaleArticle kappale={kappale}/>}
           />)}
           <Route path="/Kirjautuminen" element={<KirjautumisArticle handleLogin={handleLogin} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} user={user} errorMessage={errorMessage}/>} />
+
+        {!user && <Route path="/Lis%C3%A4%C3%A4Kappale" element={<LisääKappale/>}/>}
+
         </Routes>
 
       </div>

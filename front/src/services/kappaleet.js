@@ -4,12 +4,11 @@ const baseUrl = '/api/kappaleet'
 let token = null
 
 const setToken = newToken => {
-  token = `Bearer ${newtoken}`
+  token = `Bearer ${newToken}`
 }
 
 const getAll = () => {
   const request = axios.get(baseUrl)
-  console.log(request)
   return request.then(response => response.data)
 }
 
