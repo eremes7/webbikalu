@@ -135,8 +135,8 @@ const App = () => {
   }, [])
 
   useEffect (() => {
-    const loggedUserJson = window.localStorage.getItem('loggedWebKaluAppUser')
-    if (loggedUserJson) {
+    const loggedUserJSON = window.localStorage.getItem('loggedWebKaluAppUser')
+    if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       kappaleService.setToken(user.token)
