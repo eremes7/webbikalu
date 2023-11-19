@@ -43,6 +43,9 @@ aside {
   padding: 10px;
 }
 
+li {
+  left:100px;
+}
 p {
   margin: 0px;
 }
