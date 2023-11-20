@@ -3,44 +3,11 @@ import { BrowserRouter as Router, Route, Link, Routes, } from 'react-router-dom'
 import './styles/App.css'
 import kappaleService from './services/kappaleet'
 import loginService from './services/login'
-import Notification from './components/Notification'
 import Main from './components/Main'
 import LisääKappale from './components/Lisääkappale'
-import KirjautumisSivu from './components/Kirjautuminen'
+import Kirjautuminen from './components/Kirjautuminen'
+import Sivupalkki from './components/Sivupalkki'
 
-const Menu = () => (
-  <aside>
-    <Link to="/"> Etusivu </Link>
-  </aside>
-)
-
-const LisääKappaleLink = () => (
-  <aside>
-    <Link to="/LisääKappale"> Lisää kappale </Link>
-  </aside>
-)
-
-const Sivupalkki = ({ kategoriat, kappaleet, user }) => (
-  <div>
-    <aside>
-      <Menu />
-      <Hakemisto kappaleet={kappaleet} kategoriat={kategoriat} />
-      {kategoriat.map((kategoria) =>
-        <li key={kategoria}>
-          <Link to={`/${kategoria}`}>{kategoria}</Link>
-        </li>
-      )}
-    </aside>
-    <Kirjautuminen />
-    {user && <LisääKappaleLink />}
-  </div>
-)
-
-const Kirjautuminen = () => (
-  <aside>
-    <Link to="/Kirjautuminen">Kirjautuminen</Link>
-  </aside>
-)
 
 
 
@@ -66,12 +33,6 @@ const KappaleLinkit = ({ kappaleet }) => (
   </article>
 )
 
-
-const Hakemisto = () => (
-  <aside>
-    <Link to={'/Hakemisto'}>Hakemisto</Link>
-  </aside>
-)
 
 const KappaleArticle = ({ kappale }) => (
   <article>
@@ -218,7 +179,7 @@ const App = () => {
             <Route key={kappale.kappaleId} path={`/${kappale.kategoria}/${kappale.nimi}`}
               element={<KappaleArticle kappale={kappale} />}
             />)}
-          <Route path="/Kirjautuminen" element={<KirjautumisSivu handleLogin={handleLogin} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} user={user} errorMessage={errorMessage} />} />
+          <Route path="/Kirjautuminen" element={<Kirjautuminen handleLogin={handleLogin} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} user={user} errorMessage={errorMessage} />} />
           {user && <Route path="/LisääKappale" element={<LisääKappale handleLisääKappale={handleLisääKappale} handleNumeroChange={handleNumeroChange} handleKategoriaChange={handleKategoriaChange} handleNimiChange={handleNimiChange} handleAlkuperäinenChange={handleAlkuperäinenChange} handleSanatChange={handleSanatChange} />} />}
         </Routes>
       </div>

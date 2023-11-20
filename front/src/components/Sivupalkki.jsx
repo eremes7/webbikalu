@@ -1,41 +1,19 @@
-const Menu = () => (
-  <aside>
-    <Link to="/"> Etusivu </Link>
-  </aside>
-)
+import { Link } from 'react-router-dom'
 
-const LisääKappaleLink = () => (
-  <aside>
-    <Link to="/LisääKappale"> Lisää kappale </Link>
+const Sivupalkki = ({ kategoriat, user }) => (
+  <aside className="sivupalkki">
+    <nav>
+      <ul>
+        <p><Link to="/">Etusivu</Link></p>
+        <p><Link to="/Hakemisto">Hakemisto</Link></p>
+        {kategoriat.map((kategoria) => (
+          <li key={kategoria}><Link to={`/${kategoria}`}>{kategoria}</Link></li>
+        ))}
+        <p><Link to="/Kirjautuminen">Kirjautuminen</Link></p>
+        {user && <p><Link to="/LisääKappale">Lisää kappale</Link></p>}
+      </ul>
+    </nav>
   </aside>
-)
-
-const Kirjautuminen = () => (
-  <aside>
-    <Link to="/Kirjautuminen">Kirjautuminen</Link>
-  </aside>
-)
-
-const Kategoriat = ({ kategoriat}) => (
-  <aside>
-    {kategoriat.map((kategoria) =>
-      <li key={kategoria}>
-        <Link to={`/${kategoria}`}>{kategoria}</Link>
-      </li>
-    )}
-  </aside>
-)
-
-const Sivupalkki = ({ kategoriat, kappaleet, user }) => (
-  <div>
-    <aside>
-      <Menu />
-      <Hakemisto kappaleet={kappaleet} kategoriat={kategoriat} />
-      <Kategoriat kategoriat={kategoriat} />
-    </aside>
-    <Kirjautuminen />
-    {user && <LisääKappaleLink />}
-  </div>
-)
+);
 
 export default Sivupalkki

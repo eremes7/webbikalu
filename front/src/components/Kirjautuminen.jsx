@@ -1,5 +1,6 @@
+import Notification from './Notification'
 
-const KirjautumisSivu = ({ handleLogin, handleUsernameChange, handlePasswordChange, user, errorMessage }) => {
+const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange, user, errorMessage }) => {
     return (
       <article>
         <Notification message={errorMessage} />
@@ -27,4 +28,4 @@ const KirjautumisSivu = ({ handleLogin, handleUsernameChange, handlePasswordChan
     )
   }
 
-export default KirjautumisSivu
+export default Kirjautuminen
