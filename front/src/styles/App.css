@@ -14,6 +14,7 @@ body {
   grid-template-columns: 1fr 3fr;
   gap: 10px;
   padding: 20px;
+  padding-left: 0px;
   border: 2px solid black;
 }
 
@@ -42,13 +43,16 @@ aside {
   text-align: left;
   padding: 10px;
 }
-
+a {
+  text-decoration: none;
+}
 li {
   left:100px;
 }
 p {
   margin: 0px;
 }
+
 header {
   text-align: top;
   left: 90px;
@@ -70,3 +74,70 @@ kirjautuminen {
   bottom: 100px;
   left: 100px;
 }
+
+.sivupalkki {
+  padding: 20px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.sivupalkki nav ul {
+  text-indent: 10%;
+  font-size: 18px;
+  list-style-type: square;
+  padding: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+
+.sivupalkki nav ul li {
+  text-indent: 5%;
+  margin-left: 40px;
+  color: black;
+  margin-bottom: 0px;
+
+}
+
+.sivupalkki nav ul li a {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited{
+   color: black; 
+}
+
+.sivupalkki li {
+  color: black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.sivupalkki p {
+  color: #33332D;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sivupalkki nav ul p li a:visited {
+  color: black;
+  
+}
+
+p :hover {
+  background-color: #33332D;
+  color: antiquewhite;
+}
+
+.sivupalkki nav li :hover {
+  background-color: #33332D;
+  color: antiquewhite;
+}
+
+.sivupalkki nav li :not(:hover) {
+  background-color: antiquewhite;
+  color: #33332D;
+}
+
+

@@ -7,9 +7,7 @@ import Main from './components/Main'
 import LisääKappale from './components/Lisääkappale'
 import Kirjautuminen from './components/Kirjautuminen'
 import Sivupalkki from './components/Sivupalkki'
-
-
-
+import Hakemisto from './components/Hakemisto'
 
 const Kappaleet = ({ kappaleet }) => (
   <article>
@@ -21,7 +19,6 @@ const Kappaleet = ({ kappaleet }) => (
       </div>))}
   </article>
 )
-
 
 const KappaleLinkit = ({ kappaleet }) => (
   <article>
@@ -37,27 +34,8 @@ const KappaleLinkit = ({ kappaleet }) => (
 const KappaleArticle = ({ kappale }) => (
   <article>
     <h2>{kappale.nimi}</h2>
+    {kappale.alkuperäinen && <h4>({kappale.alkuperäinen})</h4>}
     <pre>{kappale.sanat}</pre>
-  </article>
-)
-
-
-const HakemistoArticle = ({ kappaleet, kategoriat }) => (
-  <article>
-    {kategoriat.map((kategoria) => {
-      const filteredKappaleet = kappaleet.filter((kappale) => kappale.kategoria === kategoria)
-      return (
-        <div key={kategoria}>
-          <h2>{kategoria}</h2>
-          {filteredKappaleet.map((kappale) =>
-            <h3 key={kappale.kappaleId}>
-              <Link key={kappale.id} to={`/${kappale.kategoria}/${kappale.nimi}`}>
-                {kappale.kappaleId}... {kappale.nimi}</Link>
-            </h3>
-          )}
-        </div>
-      )
-    })}
   </article>
 )
 
@@ -82,7 +60,6 @@ const App = () => {
       })
   }, [])
 
-  console.log(kappaleet)
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedWebKaluAppUser')
@@ -151,7 +128,7 @@ const App = () => {
     setKappaleet(kappaleet.concat(uusiKappale))
 
   }
-  console.log(sanat)
+
 
   const kategoriat = kappaleet.reduce((acc, cur) => {
     if (!acc.includes(cur.kategoria)) {
@@ -173,7 +150,7 @@ const App = () => {
               <Kappaleet kappaleet={kappaleet.filter(kappale => kappale.kategoria === kategoria)} />} />
           ))}
           <Route path="/Hakemisto"
-            element={<HakemistoArticle kappaleet={kappaleet} kategoriat={kategoriat} />}
+            element={<Hakemisto kappaleet={kappaleet} kategoriat={kategoriat} />}
           />
           {kappaleet.map((kappale) =>
             <Route key={kappale.kappaleId} path={`/${kappale.kategoria}/${kappale.nimi}`}

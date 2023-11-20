@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+
 const Sivupalkki = ({ kategoriat, user }) => (
   <aside className="sivupalkki">
     <nav>
