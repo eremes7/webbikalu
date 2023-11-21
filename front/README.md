@@ -8,14 +8,14 @@
 -[x] article<br>
 -[x] hakemisto<br>
 -[x] linkit<br>
--[ ] lint<br>
+-[x] lint<br>
 -[ ] reactTests<br>
--[ ] refactor<br>
--[ ] server<br>
--[ ] login<br>
+-[x] refactor<br>
+-[x] server<br>
+-[x] login<br>
 -[ ] remove<br>
--[ ] add<br>
--[ ] admin<br>
--[ ] db<br>
+-[x] add<br>
+-[x] admin<br>
+-[x] db<br>
 -[ ] .....<br>
 

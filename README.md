@@ -3,7 +3,7 @@
 https://webbikalu-express-mongodb.azurewebsites.net/
 
 ## mikä
-Webbikalu on harjoitusprojekti Oulun Teekkariyhdistyksen laulukalun viemisestä intternettiin
+Webbikalu on harjoitusprojekti Oulun Teekkariyhdistyksen laulukalun viemisestä intternettiin<br/>
 Tehty vain harjoittelu mielessä
 
 ## miksi
@@ -14,5 +14,5 @@ Koska sitä ei ole tehty ja tältä se voisi näyttää
 Backendissä on MongoDB, jonka päällä Node.Js ja Express joilla toteutettu REST API
 
 ### front
-Frontendissä React
+Frontendissä React<br/>
 Frontend löytyy [front](/front/) kansiosta
