@@ -5,6 +5,8 @@ const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange
       <article>
         <Notification message={errorMessage} />
         {!user && <form onSubmit={handleLogin}>
+        <div>käyttäjä remes remes, päästää lisäämään kappaleita. Kappaleet ei siirry tietokantaan ja poistuu päivittämällä sivun</div>
+        <div>-&gt;</div>
           <div>
             Käyttäjänimi
             <input

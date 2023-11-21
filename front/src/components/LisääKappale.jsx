@@ -17,9 +17,9 @@ const LisääKappale = ( {handleLisääKappale, handleNumeroChange, handleKatego
   return(
     <article>
       <form onSubmit={handleLisääKappale}>
-        <div>Kappaleen numero <input type="text" name="KappaleId" onChange={handleNumeroChange}/></div>
+        <div>Kappaleen numero <input type="number" name="KappaleId" onChange={handleNumeroChange}/></div>
         <div>
-          Kappaleen kategoria <input type="text" name="Kategoria" onChange={handleKategoriaChange}/></div>
+          Kappaleen kategoria <input type="text" minLength={1} name="Kategoria" onChange={handleKategoriaChange}/></div>
         <div>
           Kappaleen nimi <input type="text" name="KappaleNimi" onChange={handleNimiChange}/>
         </div>

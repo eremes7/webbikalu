@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route, Link, Routes, } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom'
 import './styles/App.css'
 import kappaleService from './services/kappaleet'
 import loginService from './services/login'
@@ -8,36 +8,8 @@ import LisääKappale from './components/Lisääkappale'
 import Kirjautuminen from './components/Kirjautuminen'
 import Sivupalkki from './components/Sivupalkki'
 import Hakemisto from './components/Hakemisto'
-
-const Kappaleet = ({ kappaleet }) => (
-  <article>
-    <KappaleLinkit kappaleet={kappaleet} />
-    {kappaleet.map((kappale) => (
-      <div key={kappale.kappaleId}>
-        <h2 key={kappale.nimi}>{kappale.nimi}</h2>
-        <pre key={kappale.sanat}>{kappale.sanat}</pre>
-      </div>))}
-  </article>
-)
-
-const KappaleLinkit = ({ kappaleet }) => (
-  <article>
-    {kappaleet.map((kappale) => (
-      <h3 key={kappale.sanat}>
-        <Link key={kappale.nimi} to={`/${kappale.kategoria}/${kappale.nimi}`}>{kappale.kappaleId}... {kappale.nimi}</Link>
-      </h3>
-    ))}
-  </article>
-)
-
-
-const KappaleArticle = ({ kappale }) => (
-  <article>
-    <h2>{kappale.nimi}</h2>
-    {kappale.alkuperäinen && <h4>({kappale.alkuperäinen})</h4>}
-    <pre>{kappale.sanat}</pre>
-  </article>
-)
+import KappaleArticle from './components/KappaleSivu'
+import Kappaleet from './components/Kappaleet'
 
 
 const App = () => {
@@ -124,9 +96,7 @@ const App = () => {
       alkuperäinen: alkuperäinen,
       sanat: sanat
     }
-
     setKappaleet(kappaleet.concat(uusiKappale))
-
   }
 
 
