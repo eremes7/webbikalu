@@ -3,7 +3,7 @@ const Main = () => (
     <h2>Tarina laulukalun synnystä </h2>
     <p>Irkkiin kulki huhu että loppui Kalun taika</p>
     <p>Vanha painos vähiin kävi siispä uuden aika</p>
-    <p>Siihen Kalukomitea masottinaan Laika</p>
+    <p>Siihen Kalukomitea maskottinaan Laika</p>
     <p>Laulukalleuksia ryhtyi hieromaan</p>
     <h2>  </h2>
     <p>Joka killast' siellä oli kutsuttuna ukko</p>
