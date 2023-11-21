@@ -2,15 +2,15 @@
 
 https://webbikalu-express-mongodb.azurewebsites.net/
 
-## mikä
+## Mikä
 Webbikalu on harjoitusprojekti Oulun Teekkariyhdistyksen laulukalun viemisestä intternettiin<br/>
 <br/>
-Tehty vain harjoittelu mielessä
+Tehty vain harjoittelu mielessä, ei saa käyttää oikeasti
 
-## miksi
+## Miksi
 Koska sitä ei ole tehty ja tältä se voisi näyttää
 
-## miten
+## Miten
 ### backend
 Backendissä on MongoDB, jonka päällä Node.Js ja Express joilla toteutettu REST API
 

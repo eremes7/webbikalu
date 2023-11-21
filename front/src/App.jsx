@@ -134,10 +134,6 @@ const App = () => {
   )
 }
 
-
-
-
-
 export default function RoutedApp() {
   return <Router><App /></Router>
 }
