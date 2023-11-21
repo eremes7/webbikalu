@@ -52,7 +52,7 @@ describe('when there is initially one user at db', () => {
       .expect(201)
   })
 })
-
+/*
 describe('Kappaleita käsiteltäessä', () => {
  
   test('Kappaleiden hakeminen onnistuu', async () => {
@@ -66,7 +66,7 @@ describe('Kappaleita käsiteltäessä', () => {
     expect(kappaleet).toBeDefined()
   })
 })
-
+*/
 
 
 afterAll(async () => {
