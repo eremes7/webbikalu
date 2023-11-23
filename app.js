@@ -30,6 +30,9 @@ app.use(express.json())
 
 app.use(middleware.requestLogger)
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+})
 
 app.use('/api/kappaleet', kappaleRouter)
 app.use('/api/login', loginRouter)

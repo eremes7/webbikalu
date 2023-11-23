@@ -1,5 +1,3 @@
-
-
 const handleUsernameChange = (event) => {
   setUsername(event.target.value)
 }
