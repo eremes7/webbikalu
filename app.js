@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
+const path = require('path')
 
 const kappaleRouter = require('./controllers/kappaleet')
 const usersRouter = require('./controllers/users')
@@ -30,14 +31,13 @@ app.use(express.json())
 
 app.use(middleware.requestLogger)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
-})
-
 app.use('/api/kappaleet', kappaleRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
+})
 
 app.use(middleware.errorHandler)
 app.use(middleware.unknownEndpoint)

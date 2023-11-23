@@ -28,7 +28,6 @@ const App = () => {
       })
   }, [])
 
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedWebKaluAppUser')
     if (loggedUserJSON) {
@@ -38,17 +37,12 @@ const App = () => {
     }
   }, [])
 
-
-
-
-
   const kategoriat = kappaleet.reduce((acc, cur) => {
     if (!acc.includes(cur.kategoria)) {
       acc.push(cur.kategoria)
     }
     return acc
   }, [])
-
 
   return (
     <>

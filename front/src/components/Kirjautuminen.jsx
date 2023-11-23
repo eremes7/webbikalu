@@ -1,6 +1,8 @@
 import Notification from './Notification'
+import Handlers from './Handlers'
 
 const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange, user, errorMessage }) => {
+  console.log(Handlers)
     return (
       <article>
         <Notification message={errorMessage} />
@@ -11,7 +13,7 @@ const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange
             Käyttäjänimi
             <input
               type="text"
-              name="Username"
+              name="username"
               onChange={handleUsernameChange}
             />
           </div>
@@ -19,7 +21,7 @@ const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange
             Salasana
             <input
               type="password"
-              name="Password"
+              name="password"
               onChange={handlePasswordChange}
             />
           </div>
