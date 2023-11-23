@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Notification from './Notification'
 import loginService from '../services/login'
 import kappaleService from '../services/kappaleet'
+import '../styles/App.css'
 
 const Kirjautuminen = ({ user, setUser, errorMessage, setErrorMessage}) => {
     const [username, setUsername] = useState('')
@@ -47,27 +48,30 @@ const Kirjautuminen = ({ user, setUser, errorMessage, setErrorMessage}) => {
       <article>
         <Notification message={errorMessage} />
         {!user && <form onSubmit={handleLogin}>
-        <div>käyttäjä remes remes, päästää lisäämään kappaleita. Kappaleet ei siirry tietokantaan ja poistuu päivittämällä sivun</div>
-        <div>-&gt;</div>
+        <h2>Kirjautuminen</h2>
+        <div>--&gt;Käyttäjätunnus: remes remes, päästää lisäämään kappaleita.<br/>--&gt;Kappaleet ei siirry tietokantaan ja poistuu päivittämällä sivun</div>
+        <br/>
           <div>
-            Käyttäjänimi
+            <div>Käyttäjänimi</div>
             <input
+              id="käyttäjäNimi-styles"
               type="text"
               name="username"
               onChange={handleUsernameChange}
             />
           </div>
           <div>
-            Salasana
+            <div>Salasana</div>
             <input
+              id="salasana-styles"
               type="password"
               name="password"
               onChange={handlePasswordChange}
             />
           </div>
-          <button type="submit">kirjaudu</button>
+          <button id="kirjautumisNappi-styles" type="submit">kirjaudu</button>
         </form>}
-        {user && <> <div> Kirjautunut käyttäjällä {user.username} </div><button onClick={() => handleLogout()}>Kirjaudu ulos</button></>}
+        {user && <> <div> Kirjautunut käyttäjällä {user.username} </div><button id="kirjautumisNappi-styles" onClick={() => handleLogout()}>Kirjaudu ulos</button></>}
       </article>
     )
   }

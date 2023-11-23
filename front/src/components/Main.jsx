@@ -1,5 +1,5 @@
 const Main = () => (
-  <article>
+  <article id="lyriikat-styles">
     <h2>Tarina laulukalun synnystä </h2>
     <p>Irkkiin kulki huhu että loppui Kalun taika</p>
     <p>Vanha painos vähiin kävi siispä uuden aika</p>

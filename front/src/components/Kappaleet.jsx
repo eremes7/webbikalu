@@ -16,7 +16,7 @@ const Kappaleet = ({ kappaleet }) => (
         {kappaleet.map((kappale) => (
             <div key={kappale.kappaleId}>
                 <h2 key={kappale.nimi}>{kappale.nimi}</h2>
-                <pre key={kappale.sanat}>{kappale.sanat}</pre>
+                <pre id="lyriikat-styles" key={kappale.sanat}>{kappale.sanat}</pre>
             </div>))}
     </article>
 )
