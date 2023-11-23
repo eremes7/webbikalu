@@ -1,11 +1,43 @@
 import React from 'react'
+import { useState } from 'react'
 import { Editor, EditorState, convertToRaw } from 'draft-js'
 import '../styles/Draft.css'
 
 
-const LisääKappale = ( {handleLisääKappale, handleNumeroChange, handleKategoriaChange, handleNimiChange, handleAlkuperäinenChange, handleSanatChange} ) => {
+const LisääKappale = ({ kappaleet, setKappaleet }) => {
   const [editorState, setEditorState] = React.useState(EditorState.createEmpty())
+  const [numero, setNumero] = useState('')
+  const [addKategoria, setAddKategoria] = useState('')
+  const [nimi, setNimi] = useState('')
+  const [alkuperäinen, setAlkuperäinen] = useState('')
+  const [sanat, setSanat] = useState('')
 
+  const handleNimiChange = (event) => {
+    setNimi(event.target.value)
+  }
+  const handleKategoriaChange = (event) => {
+    setAddKategoria(event.target.value)
+  }
+  const handleNumeroChange = (event) => {
+    setNumero(event.target.value)
+  }
+  const handleAlkuperäinenChange = (event) => {
+    setAlkuperäinen(event.target.value)
+  }
+  const handleSanatChange = (uudetSanat) => {
+    setSanat(uudetSanat)
+  }
+  const handleLisääKappale = (event) => {
+    event.preventDefault()
+    const uusiKappale = {
+      nimi: nimi,
+      kategoria: addKategoria,
+      kappaleId: Number(numero),
+      alkuperäinen: alkuperäinen,
+      sanat: sanat
+    }
+    setKappaleet(kappaleet.concat(uusiKappale))
+  }
 
   const extractText = () => {
     const currentContent = editorState.getCurrentContent()

@@ -1,8 +1,48 @@
+import { useState } from 'react'
 import Notification from './Notification'
-import Handlers from './Handlers'
+import loginService from '../services/login'
+import kappaleService from '../services/kappaleet'
 
-const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange, user, errorMessage }) => {
-  console.log(Handlers)
+const Kirjautuminen = ({ user, setUser, errorMessage, setErrorMessage}) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async (event) => {
+        event.preventDefault()
+        try {
+          const user = await loginService.login({
+            username: username, password: password
+          })
+          window.localStorage.setItem(
+            'loggedWebKaluAppUser', JSON.stringify(user)
+          )
+          kappaleService.setToken(user.token)
+          setUser(user)
+          setUsername(username)
+          setPassword(password)
+        } catch (exception) {
+          setErrorMessage('Virheellinen käyttäjätunnus')
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        }
+        setUsername('')
+        setPassword('')
+      }
+
+      const handleUsernameChange = (event) => {
+        setUsername(event.target.value)
+      }
+      const handlePasswordChange = (event) => {
+        setPassword(event.target.value)
+      }
+      const handleLogout = () => {
+        if(user){
+            setUser(null)
+            window.localStorage.clear()
+        }
+      }
+
     return (
       <article>
         <Notification message={errorMessage} />
@@ -27,7 +67,7 @@ const Kirjautuminen = ({ handleLogin, handleUsernameChange, handlePasswordChange
           </div>
           <button type="submit">kirjaudu</button>
         </form>}
-        {user && <> <div> Kirjautunut käyttäjällä {user.username} </div><button onClick={() => window.localStorage.clear()}>Kirjaudu ulos</button></>}
+        {user && <> <div> Kirjautunut käyttäjällä {user.username} </div><button onClick={() => handleLogout()}>Kirjaudu ulos</button></>}
       </article>
     )
   }
