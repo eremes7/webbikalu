@@ -7,5 +7,9 @@ const MONGODB_URI = process.env.NODE_ENV === 'test'
 
 module.exports = {
 	MONGODB_URI,
-	PORT
+	PORT,
+	Memory: true,
+	IP: '127.0.0.1',
+	Port: '27017',
+	Database: 'webbikalu'
 }
