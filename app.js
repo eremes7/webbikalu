@@ -13,10 +13,9 @@ const middleware = require('./utils/middleware')
 
 mongoose.set('strictQuery', false)
 //en nää miksi tämä ei olisi hyvä ratkasu
-console.log(process.env.NODE_ENV === 'test')
 if (process.env.NODE_ENV !== 'test') {
-	console.log('Yhdistetään, ', MONGODB_URI)
-	mongoose.connect(MONGODB_URI)
+	console.log('Yhdistetään, ', config.MONGODB_URI)
+	mongoose.connect(config.MONGODB_URI)
 		.then(() => {
 			console.log('Yhdistetty tietokantaan')
 		})

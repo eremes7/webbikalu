@@ -1,74 +1,69 @@
 const supertest = require('supertest')
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const helper = require('./test_helper')
 const app = require('../app')
-const api = supertest(app)
+const Kappale = require('../models/kappale')
+const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const api = supertest(app)
 
-describe('when there is initially one user at db', () => {
+
+//testaa, että tietokanta on kappaleista tyhjä
+//testaa, että kappaleen lisäys onnistuu
+//testaa, että kappaleen hakeminen onnistuu
+//testaa, että kappaleissa on vaadittavat muuttujat lisättäessä
+//testaa, että samaa id, nimea jne. ei voi lisätä tietokantaan,
+//testaa, että kategoriaa lisättäessä isot alkukirjaimet menee oikein ja välilyönnillä ei ole väliä
+//testaa, että kappale voidaan poistaa
+//testaa, että kappaleesta voidaan vaihtaa jokin osa oikein
+//testaa, että tyhjää kappaletta ei voida lisätä
+//testaa, että kategorian sisällä id:t menee kronologisesti
+//
+//testaa, että useamman kappaleen lisääminen onnistuu nopeasti peräkkäin
+//
+
+beforeAll(async () => {
+  await User.deleteMany({});
+  await Kappale.deleteMany({});
+
+  await User.deleteMany({});
+
+  const passwordHash = await bcrypt.hash('salasana', 10);
+  const user = new User({ username: 'testikäyttäjä', passwordHash });
+
+  await user.save()
+});
+
+describe('Kappaleiden lisääminen', () => {
+  let token;
+
+  // Kirjaudu sisään ennen jokaista testiä
   beforeEach(async () => {
-    await User.deleteMany({})
+    const response = await api
+      .post('/api/login')
+      .send({
+        username: 'testikäyttäjä',
+        password: 'salasana'
+      });
 
-    const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
+    token = response.body.token;
+  });
 
-    await user.save()
-  })
-
-  test('creation succeeds with a fresh username', async () => {
-    const usersAtStart = await helper.usersInDb()
-
-    const newUser = {
-      username: 'remes',
-      name: 'remes',
-      password: 'eremes',
+  test('Kappaleen lisääminen onnistuu kirjautuneena käyttäjänä', async () => {
+    const newKappale = {
+      nimi: "Ässät korkealla",
+      alkuperäinen: "Aces High",
+      kategoria: "Hassut laulut",
+      kappaleId: 123,
+      sanat: "Elää lentääkseen, lentää elääkseen... Ässät korkealla"
     }
 
     await api
-      .post('/api/users')
-      .send(newUser)
+      .post('/api/kappaleet')
+      .set('Authorization', `Bearer ${token}`)
+      .send(newKappale, token)
       .expect(201)
-      .expect('Content-Type', /application\/json/)
+      .expect('Content-Type', /application\/json/);
+  });
 
-    const usersAtEnd = await helper.usersInDb()
-    expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
+  // Lisää muita testejä tarvittaessa
+});
 
-    const usernames = usersAtEnd.map(u => u.username)
-    expect(usernames).toContain(newUser.username)
-  })
-  
-  test('Liian lyhyet salasanat hylätään', async () => {
-    
-    const newUser = {
-      username: 'remes',
-      name: 'remes',
-      password: 'remes',
-    }
-
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(201)
-  })
-})
-/*
-describe('Kappaleita käsiteltäessä', () => {
- 
-  test('Kappaleiden hakeminen onnistuu', async () => {
-    const kappaleet = await helper.kappaleetInDb()
-
-    await api
-      .get('/api/kappaleet')
-      .expect(200)
-
-    
-    expect(kappaleet).toBeDefined()
-  })
-})
-*/
-
-
-afterAll(async () => {
-  await mongoose.connection.close()
-})

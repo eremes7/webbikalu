@@ -22,7 +22,6 @@ kappaleRouter.post('/', async (request, response) => {
 			return response.status(401).json({error: 'token invalid' })
 		}
 		const user = await User.findById(decodedToken.id)
-
 		const kappale = new Kappale({
 			nimi: body.nimi,
 			kappaleId: body.kappaleId,
