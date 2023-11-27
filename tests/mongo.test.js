@@ -21,29 +21,20 @@ const api = supertest(app)
 //testaa, että useamman kappaleen lisääminen onnistuu nopeasti peräkkäin
 //
 
+    let token
 describe('Kappaleiden lisääminen', () => {
-  let token
-  const user = {
-    name: "TestiKäyttäjä",
-    username: "Testi Käyttäjä",
-    password: "salasana"
-  }
-
 
   beforeAll(async () => {
-
-    const newUser = user
+    const newUser = {
+      name: "TestiKäyttäjä",
+      username: "Testi Käyttäjä",
+      password: "salasana"
+    }
 
     await api
       .post('/api/users')
       .send(newUser)
       .expect(201)
-      .expect('Content-Type', /application\/json/)
-
-    await api
-      .post('/api/login')
-      .send(newUser)
-      .expect(200)
       .expect('Content-Type', /application\/json/)
 
     const loginResponse = await api
@@ -67,13 +58,14 @@ describe('Kappaleiden lisääminen', () => {
     const vastaus = await api
       .post('/api/kappaleet')
       .set('Authorization', `Bearer ${token}`)
-      .send(newKappale, user)
+      .send(newKappale)
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
     //piti tehdä erikseen tämä, jotta jest rekisteröi kattavuuteen kys. kohdan
     expect(vastaus.statusCode).toBe(201)
   })
+
   test('Kappaleiden hakeminen onnistuu', async () => {
 
     const Kappaleet = await api
@@ -114,7 +106,7 @@ describe('Kappaleiden lisääminen', () => {
     await api
       .post('/api/kappaleet')
       .set('Authorization', `Bearer ${token}`)
-      .send(newKappale, user)
+      .send(newKappale)
       .expect(400)
       .expect('Content-Type', /application\/json/)
   })
@@ -132,7 +124,7 @@ describe('Kappaleiden lisääminen', () => {
     await api
       .post('/api/kappaleet')
       .set('Authorization', `Bearer ${token}`)
-      .send(newKappale, user)
+      .send(newKappale)
       .expect(400)
       .expect('Content-Type', /application\/json/)
   })
@@ -150,7 +142,7 @@ describe('Kappaleiden lisääminen', () => {
     await api
       .post('/api/kappaleet')
       .set('Authorization', `Bearer ${token}`)
-      .send(newKappale, user)
+      .send(newKappale)
       .expect(500)
       .expect('Content-Type', /application\/json/)
   })

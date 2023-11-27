@@ -1,7 +1,4 @@
-const Kappale = require('../models/kappale');
-
-
-// ei niin relevantteja testejä
+const Kappale = require('../models/kappale')
 
 describe('Kappale Model', () => {
     test('Sisältää kaikki tarvittavat muuttujat', () => {
