@@ -23,13 +23,6 @@ jobs:
         cache: 'npm'
     - run: npm install 
 
-    - name: Set .env
-      run: |
-        echo "SECRET=$SECRET" >> .env
-        echo "PORT=$PORT" >> .env
-        echo "TEST_PORT=$TEST_PORT" >> .env
-        echo "MONGO_URI=$MONGO_URI" >> .env
-        echo "TEST_MONGO_URI=$TEST_MONGO_URI" >> .env
 
     - name: Run tests
       run: npm run test -- --detectOpenHandles --forceExit --testTimeout=10000
