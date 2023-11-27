@@ -25,6 +25,7 @@ const api = supertest(app)
 describe('Kappaleiden lisääminen', () => {
 
   beforeAll(async () => {
+    console.log('Kumpi tuli ensin, muna vai kana?')
     const newUser = {
       name: "TestiKäyttäjä",
       username: "Testi Käyttäjä",
