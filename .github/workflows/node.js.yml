@@ -22,4 +22,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install 
-    - run: npm test
+
+    - name: Set .env
+      run: |
+        echo "SECRET=$SECRET" >> .env
+        echo "PORT=$PORT" >> .env
+        echo "TEST_PORT=$TEST_PORT" >> .env
+        echo "MONGO_URI=$MONGO_URI" >> .env
+        echo "TEST_MONGO_URI=$TEST_MONGO_URI" >> .env
+
+    - name: Run tests
+      run: npm test
