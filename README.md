@@ -1,23 +1,24 @@
 # Webbikalu
-Demosivu saattaa olla päällä</br>
+Demosivu **saattaa** olla päällä</br>
 ->https://fs-sivut.onrender.com/</br>
 https://webbikalu-express-mongodb.azurewebsites.net/
 
 ## Mikä
-Webbikalu on harjoitusprojekti Oulun Teekkariyhdistyksen laulukalun viemisestä internettiin<br/>
+Webbikalu on harjoitusprojekti *Oulun Teekkariyhdistyksen* laulukalun viemisestä internettiin<br/>
+Projektin ideana on kehittää valmis palvelu työkaluineen verkkosivun ylläpitäjille "avaimet käteen" tyylisesti.
 <br/>
-Tehty vain harjoittelu mielessä, ei saa käyttää oikeasti
+Tehty vain harjoittelumielessä, ei saa oikeasti käyttää
 
 ## Miksi
 Koska sitä ei ole tehty ja tältä se voisi näyttää<br/>
 </br>
-Ja saattaisi oppia jotain!
+Ja samalla saattaisi oppia jotain!
 
 ## Miten
-### backend
-Backendissä on Node.Js, jonka päällä on Express joilla toteutettu REST API<br/>
+### Backend
+Backendissä on Node.Js minkä päällä on Express ja näillä on toteutettu REST API<br/>
 Tietokantana MongoDB
 
-### front
+### Frontend
 Frontendissä React<br/>
 Frontend löytyy [front](/front/) kansiosta
