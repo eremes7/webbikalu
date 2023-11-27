@@ -3,7 +3,7 @@ const User = require('../models/user')
 const app = require('../app')
 
 const bcrypt = require('bcrypt')
-const api = supertest(app);
+const api = supertest(app)
 const config = require('../utils/config')
 
 const mongoose = require('mongoose')
@@ -158,7 +158,7 @@ describe('Käyttäjähallinnassa', () => {
       .post('/api/login')
       .send(loginDetails)
       .expect(200)
-      .expect('Content-Type', /application\/json/);
+      .expect('Content-Type', /application\/json/)
   })
 
 

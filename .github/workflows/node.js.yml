@@ -29,4 +29,4 @@ jobs:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
         PORT: ${{ secrets.PORT }}
         SECRET: ${{ secrets.SECRET }}
-      run: npm run test -- --detectOpenHandles --forceExit --testTimeout=10000
+      run: npm run test:no-coverage -- --detectOpenHandles --forceExit --testTimeout=10000

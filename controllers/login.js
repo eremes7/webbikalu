@@ -22,14 +22,13 @@ loginRouter.post('/', async (request, response) => {
     id: user._id,
   }
   const salaisuus = process.env.SECRET
-  console.log('process.env.SECRET', salaisuus, process.env.SECRET, 'haloo')
   const token = jwt.sign(
     userForToken, 
     process.env.SECRET,
     { expiresIn: 60*60 }
   )
 
-   response
+  response
     .status(200)
     .send({ token, username: user.username, name: user.name })
 })

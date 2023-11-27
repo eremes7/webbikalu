@@ -21,15 +21,15 @@ const api = supertest(app)
 //testaa, että useamman kappaleen lisääminen onnistuu nopeasti peräkkäin
 //
 
-    let token
+let token
 describe('Kappaleiden lisääminen', () => {
 
   beforeAll(async () => {
     console.log('Kumpi tuli ensin, muna vai kana?')
     const newUser = {
-      name: "TestiKäyttäjä",
-      username: "Testi Käyttäjä",
-      password: "salasana"
+      name: 'TestiKäyttäjä',
+      username: 'Testi Käyttäjä',
+      password: 'salasana'
     }
 
     await api
@@ -49,11 +49,11 @@ describe('Kappaleiden lisääminen', () => {
 
   test('Kappaleen lisääminen onnistuu kirjautuneena käyttäjänä', async () => {
     const newKappale = {
-      nimi: "Ässät korkealla",
-      alkuperäinen: "Aces High",
-      kategoria: "Hassut laulut",
+      nimi: 'Ässät korkealla',
+      alkuperäinen: 'Aces High',
+      kategoria: 'Hassut laulut',
       kappaleId: 123,
-      sanat: "Elää lentääkseen, lentää elääkseen... Ässät korkealla"
+      sanat: 'Elää lentääkseen, lentää elääkseen... Ässät korkealla'
     }
 
     const vastaus = await api
@@ -80,16 +80,16 @@ describe('Kappaleiden lisääminen', () => {
   test('Kappaleen lisääminen ei onnistu ilman kirjautumista', async () => {
 
     const newKappale = {
-      nimi: "askljaskjd",
-      alkuperäinen: "asdasdasd",
-      kategoria: "Hassut laulut",
+      nimi: 'askljaskjd',
+      alkuperäinen: 'asdasdasd',
+      kategoria: 'Hassut laulut',
       kappaleId: 1232,
-      sanat: "Elsadasdasdasdtää elääkseen... Ässät korkealla"
+      sanat: 'Elsadasdasdasdtää elääkseen... Ässät korkealla'
     }
 
     await api
       .post('/api/kappaleet')
-      .set('Authorization', `Bearer ${"Väärä token"}`)
+      .set('Authorization', `Bearer ${'Väärä token'}`)
       .send(newKappale)
       .expect(401)
       .expect('Content-Type', /application\/json/)
@@ -98,10 +98,10 @@ describe('Kappaleiden lisääminen', () => {
   test('Kappaleen lisääminen ei onnistu ilman nimeä', async () => {
 
     const newKappale = {
-      alkuperäinen: "asdasdasd",
-      kategoria: "Hassut laulut",
+      alkuperäinen: 'asdasdasd',
+      kategoria: 'Hassut laulut',
       kappaleId: 1232,
-      sanat: "Elsadasdasdasdtää elääkseen... Ässät korkealla"
+      sanat: 'Elsadasdasdasdtää elääkseen... Ässät korkealla'
     }
 
     await api
@@ -115,11 +115,11 @@ describe('Kappaleiden lisääminen', () => {
   test('Saman kappaleen lisääminen ei onnistu', async () => {
 
     const newKappale = {
-      nimi: "Ässät korkealla",
-      alkuperäinen: "Aces High",
-      kategoria: "Hassut laulut",
+      nimi: 'Ässät korkealla',
+      alkuperäinen: 'Aces High',
+      kategoria: 'Hassut laulut',
       kappaleId: 123,
-      sanat: "Elää lentääkseen, lentää elääkseen... Ässät korkealla"
+      sanat: 'Elää lentääkseen, lentää elääkseen... Ässät korkealla'
     }
 
     await api
@@ -133,11 +133,11 @@ describe('Kappaleiden lisääminen', () => {
   test('Palvelin palauttaa 500 virheen, jos yhteyttä ei ole ', async () => {
     mongoose.connection.close()
     const newKappale = {
-      nimi: "Ässät korkealla",
-      alkuperäinen: "Aces High",
-      kategoria: "Hassut laulut",
+      nimi: 'Ässät korkealla',
+      alkuperäinen: 'Aces High',
+      kategoria: 'Hassut laulut',
       kappaleId: 123,
-      sanat: "Elää lentääkseen, lentää elääkseen... Ässät korkealla"
+      sanat: 'Elää lentääkseen, lentää elääkseen... Ässät korkealla'
     }
 
     await api

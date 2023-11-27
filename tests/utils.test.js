@@ -9,14 +9,10 @@ describe('Config liittyen', () => {
         jest.resetModules()
         process.env = { ...originalEnv }
     })
-    afterAll(() => {   
+    afterAll(() => {
         process.env = originalEnv
     })
     test('MONGODB_URI on määritelty', () => {
-        console.log(config.MONGODB_URI)
-        console.log(process.env.MONGODB_URI)
-        console.log(process.env.TEST_MONGO_URI)
-        console.log(config)
         expect(config.MONGODB_URI).toBeDefined()
     })
     test('PORT on määritelty', () => {
@@ -31,14 +27,16 @@ describe('Config liittyen', () => {
     test('Database on määritelty', () => {
         expect(config.Database).toBeDefined()
     })
-    test('testiympäristössä NODE_ENV on test', () => {
+    test('testiympäristössä NODE_ENV on test, ja osoitteet on määritetty oikein', () => {
         process.env.NODE_ENV = 'test'
         const config = require('../utils/config')
+        expect(process.env.NODE_ENV).toBe('test')
         expect(config.MONGODB_URI).toBe(process.env.TEST_MONGO_URI)
     })
-    test('tuotantoympäristössä NODE_ENV on production', () => {
+    test('tuotantoympäristössä osoitteet on määritetty oikein', () => {
         process.env.NODE_ENV = 'production'
         const config = require('../utils/config')
+        expect(process.env.NODE_ENV).toBe('production')
         expect(config.MONGODB_URI).toBe(process.env.MONGODB_URI)
     })
 })
