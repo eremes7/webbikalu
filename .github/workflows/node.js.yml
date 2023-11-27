@@ -27,5 +27,6 @@ jobs:
     - name: Run tests
       env:
         MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        PORT: ${{ secrets.PORT }}
         SECRET: ${{ secrets.SECRET }}
       run: npm run test -- --detectOpenHandles --forceExit --testTimeout=10000
