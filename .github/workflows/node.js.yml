@@ -32,4 +32,4 @@ jobs:
         echo "TEST_MONGO_URI=$TEST_MONGO_URI" >> .env
 
     - name: Run tests
-      run: npm test
+      run: npm run test -- --detectOpenHandles --forceExit --testTimeout=10000
