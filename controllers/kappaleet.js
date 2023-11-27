@@ -1,6 +1,5 @@
 const kappaleRouter = require('express').Router()
 const Kappale = require('../models/kappale')
-const User = require('../models/user')
 const middleWare = require('../utils/middleware')
 
 const jwt = require('jsonwebtoken')
@@ -17,11 +16,18 @@ kappaleRouter.get('/', async (request, response) => {
 kappaleRouter.post('/', async (request, response) => {
 	try {
 		const body = request.body
-		const decodedToken = jwt.verify(middleWare.tokenExtractor(request), process.env.SECRET)
-		if (!decodedToken.id) {
-			return response.status(401).json({error: 'token invalid' })
+
+		let decodedToken = null 
+		try {
+			decodedToken = jwt.verify(middleWare.tokenExtractor(request), process.env.SECRET)
+		} catch (error) {
+			return response.status(401).json({ error: 'token missing or invalid' })
 		}
-		const user = await User.findById(decodedToken.id)
+
+		if (!body.nimi || !body.kappaleId || !body.sanat || !body.kategoria) {
+			return response.status(400).json({ error: 'content missing' })
+		}
+
 		const kappale = new Kappale({
 			nimi: body.nimi,
 			kappaleId: body.kappaleId,
@@ -29,10 +35,16 @@ kappaleRouter.post('/', async (request, response) => {
 			kategoria: body.kategoria,
 			alkuperäinen: body.alkuperäinen
 		})
+		const existingKappale = await Kappale.findOne({ kappaleId: body.kappaleId })
+		if (existingKappale) {
+			return response.status(400).json({ error: 'kappale already exists' })
+		}
+
 		const savedKappale = await kappale.save()
 		response.status(201).json(savedKappale)
+
 	} catch (error) {
-		return response.status(500).json({error: error.message})	
+		return response.status(500).json({ error: error.message })
 	}
 })
 

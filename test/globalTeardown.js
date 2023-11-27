@@ -1,4 +1,3 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const config = require('../utils/config'); // Muuta polkua tarvittaessa
 
 module.exports = async function globalTeardown() {

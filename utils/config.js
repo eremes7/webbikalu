@@ -10,6 +10,6 @@ module.exports = {
 	PORT,
 	Memory: true,
 	IP: '127.0.0.1',
-	Port: '27017',
+	testPort: '27017',
 	Database: 'webbikalu'
 }

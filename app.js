@@ -1,28 +1,16 @@
-const config = require('./utils/config')
 const express = require('express')
-const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
 
+const { connectToDatabase } = require('./utils/connect')
 const kappaleRouter = require('./controllers/kappaleet')
 const usersRouter = require('./controllers/users')
-const loginRouter = require('./controllers/login')
 
+const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 
+connectToDatabase()
 
-mongoose.set('strictQuery', false)
-//en nää miksi tämä ei olisi hyvä ratkasu
-if (process.env.NODE_ENV !== 'test') {
-	console.log('Yhdistetään, ', config.MONGODB_URI)
-	mongoose.connect(config.MONGODB_URI)
-		.then(() => {
-			console.log('Yhdistetty tietokantaan')
-		})
-		.catch((error) => {
-			console.log('Virhe yhdistäessä tietokantaan: ', error.message)
-		})
-}
 app.use(cors())
 app.use(express.static('dist'))
 app.use(express.json())
