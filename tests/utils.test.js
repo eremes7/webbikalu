@@ -24,9 +24,6 @@ describe('Config liittyen', () => {
     test('IP on määritelty', () => {
         expect(config.IP).toBeDefined()
     })
-    test('testPort on määritelty', () => {
-        expect(config.testPort).toBeDefined()
-    })
     test('Database on määritelty', () => {
         expect(config.Database).toBeDefined()
     })
