@@ -6,7 +6,15 @@ usersRouter.post('/', async (request, response) => {
   try{
     const { username, name, password } = request.body
 
-    if(password.length<5){
+    if (!username || username.length < 3) {
+      return response.status(400).json({ message: 'Username too short' })
+    }
+
+    if (!name || name.length < 3) {
+      return response.status(400).json({ message: 'Name too short' })
+    }
+
+    if (!password || password.length < 3) {
       return response.status(400).json({ message: 'Password too short' })
     }
       const saltRounds = 10

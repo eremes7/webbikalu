@@ -1,74 +1,205 @@
 const supertest = require('supertest')
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
-const helper = require('./test_helper')
-const app = require('../app')
-const api = supertest(app)
 const User = require('../models/user')
+const app = require('../app')
 
-describe('when there is initially one user at db', () => {
+const bcrypt = require('bcrypt')
+const api = supertest(app);
+const config = require('../utils/config')
+
+const mongoose = require('mongoose')
+const { connectToDatabase } = require('../utils/connect')
+
+describe('Testitietokantaan liityttäessä', async => {
+  test('Ympäristön tila on määritetty oikein', async () => {
+    expect(process.env.NODE_ENV === 'test')
+  })
+  test('Liittyessä ei käytetä tuotantotietokannan osoitette', async () => {
+    expect(mongoose.connection.host).not.toBe(config.MONGODB_URI)
+  })
+  test('Yhteyden nimi vastaa testiympäristöä', async () => {
+    expect(mongoose.connection.name).toBe('test')
+  })
+  test('Liittyessä ei käytetä paikallisporttina kehitysympäristön porttia', async () => {
+    expect(mongoose.connection.port).not.toBe(config.PORT)
+  })
+})
+
+describe('Käyttäjähallinnassa', () => {
   beforeEach(async () => {
+
     await User.deleteMany({})
 
-    const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
+    const passwordHash = await bcrypt.hash('salasana', 10)
+    const user = new User({ username: 'testikäyttäjä', passwordHash })
 
     await user.save()
   })
 
-  test('creation succeeds with a fresh username', async () => {
-    const usersAtStart = await helper.usersInDb()
+  afterAll(async () => {
+    await User.deleteMany({})
+  })
 
-    const newUser = {
-      username: 'remes',
-      name: 'remes',
-      password: 'eremes',
+  test('uusien käyttäjien lisääminen onnistuu', async () => {
+    newUser = {
+      name: 'Testi Käyttäjä',
+      username: 'Testikäyttäjä2',
+      password: 'salasana'
     }
 
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(201)
-      .expect('Content-Type', /application\/json/)
-
-    const usersAtEnd = await helper.usersInDb()
-    expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
-
-    const usernames = usersAtEnd.map(u => u.username)
-    expect(usernames).toContain(newUser.username)
-  })
-  
-  test('Liian lyhyet salasanat hylätään', async () => {
-    
-    const newUser = {
-      username: 'remes',
-      name: 'remes',
-      password: 'remes',
-    }
-
-    await api
-      .post('/api/users')
-      .send(newUser)
-      .expect(201)
-  })
-})
-/*
-describe('Kappaleita käsiteltäessä', () => {
- 
-  test('Kappaleiden hakeminen onnistuu', async () => {
-    const kappaleet = await helper.kappaleetInDb()
-
-    await api
-      .get('/api/kappaleet')
+    let Users = await api
+      .get('/api/users')
       .expect(200)
 
-    
-    expect(kappaleet).toBeDefined()
+    initialUsers = Users.body.length
+    const passwordHash = await bcrypt.hash('salasana', 10)
+    const user = new User({ username: 'testikäyttäjä2', passwordHash })
+
+    await user.save()
+
+    Users = await api
+      .get('/api/users')
+      .expect(200)
+
+    expect(Users.body.length).toEqual(initialUsers + 1)
+  })
+
+  test('uuden käyttäjän lisääminen ei onnistu ilman salasanaa', async () => {
+    newUser = {
+      name: 'Testi Käyttäjä',
+      username: 'Testikäyttäjä2',
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+  })
+
+  test('uuden käyttäjän lisääminen ei onnistu liian lyhyellä salasanalla', async () => {
+    newUser = {
+      name: 'Testi Käyttäjä',
+      username: 'Testikäyttäjä2',
+      password: 'sa'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+  })
+
+  test('uuden käyttäjän lisääminen ei onnistu ilman käyttäjänimeä', async () => {
+    newUser = {
+      username: 'Testikäyttäjä2',
+      password: 'salasana'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+  })
+
+  test('uuden käyttäjän lisääminen ei onnistu liian lyhyellä käyttäjänimellä', async () => {
+    newUser = {
+      name: 'Testi Käyttäjä',
+      username: 'Te',
+      password: 'salasana'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+  })
+
+  test('uuden käyttäjän lisääminen ei onnistu ilman nimeä', async () => {
+    newUser = {
+      username: 'Testikäyttäjä2',
+      password: 'salasana'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+  })
+
+  test('uuden käyttäjän lisääminen ei onnistu jos käyttäjänimi on jo käytössä', async () => {
+    newUser = {
+      name: 'Testi Käyttäjä',
+      username: 'Testikäyttäjä',
+      password: 'salasana'
+    }
+    anotherUser = {
+      name: 'Testi Käyttäjä',
+      username: 'Testikäyttäjä',
+      password: 'salasana'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(201)
+
+    await api
+      .post('/api/users')
+      .send(anotherUser)
+      .expect(400)
+  })
+
+  test('kirjautuminen onnistuu oikealla käyttäjällä', async () => {
+    const loginDetails = {
+      username: 'testikäyttäjä',
+      password: 'salasana'
+    }
+
+    await api
+      .post('/api/login')
+      .send(loginDetails)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+  })
+
+
+  test('kirjautuminen epäonnistuu väärällä käyttäjällä', async () => {
+    const loginDetails = {
+      username: 'testikäyttäjä',
+      password: 'vääräsalasana'
+    }
+
+    await api
+      .post('/api/login')
+      .send(loginDetails)
+      .expect(401)
   })
 })
-*/
 
+describe('Tuotantotietokantaan liityttäessä', async => {
 
-afterAll(async () => {
-  await mongoose.connection.close()
+  let consoleErrorSpy
+
+  beforeEach(async () => {
+
+    await mongoose.connection.close()
+    consoleErrorSpy = jest.spyOn(console, 'log').mockImplementation(() => { })
+    process.env.NODE_ENV = 'dev'
+
+    jest.doMock('../utils/config', () => ({
+      MONGODB_URI: 'Väärä osoite asdsa d s',
+      PORT: process.env.PORT,
+    }))
+  })
+
+  afterAll(async () => {
+    await mongoose.connection.close()
+    consoleErrorSpy.mockRestore()
+    jest.dontMock('../utils/config')
+    await connectToDatabase()
+  })
+
+  test('Väärällä osoitteella tulee virhe virheellisestä osoitteesta', async () => {
+    await connectToDatabase()
+    expect(consoleErrorSpy).toHaveBeenCalled()
+  })
 })
